@@ -117,6 +117,7 @@ Both hits (and whether they were found) are packed into an `ObstacleHitData` str
 ### ParkourAction
 
 A `ScriptableObject` — meaning each parkour move (vault over a low wall, climb onto a ledge, hop a gap, etc.) is authored as a reusable **data asset** in the Project window (`Create → Scriptable Objects → ParkourAction`), not hardcoded logic. This lets designers add/tune new moves without touching code.
+<img width="486" height="406" alt="image" src="https://github.com/user-attachments/assets/98a7a008-851f-41d7-934b-9f28f02f3e53" />
 
 Each asset defines:
 
@@ -140,12 +141,25 @@ The orchestrator:
 
 - On `Jump` input (when not already `inAction`), calls `EnvironmentScanner.ObstacleCheck()`.
 - If an obstacle is found, iterates the assigned list of `ParkourAction` assets in order and runs the **first** one whose `checkIfPossible` returns true — meaning **asset order in the Inspector list matters** (put more specific/restrictive actions first).
+- <img width="480" height="257" alt="image" src="https://github.com/user-attachments/assets/0fe7b6f3-2658-40fe-b3b3-8db8bd4b6f2c" />
+
 - If no obstacle is found, falls back to `DoNormalJump()` — a simple crossfade into a `Jump` state that waits until the Animator has left that state before returning control.
 - If a matching action is found, runs `DoParkourAction(action)`:
   1. Disables normal control, crossfades into the action's animation.
   2. Each frame for the duration of the clip: optionally rotates the player toward `action.TargetRotation`, and (if enabled) calls `MatchTarget` for procedural correction.
   3. Breaks early if the Animator has moved into a transition past the halfway point (`timer > 0.5f`), to avoid the coroutine holding control after the clip has effectively finished.
   4. Waits `postActionDelay`, then restores control.
+
+- Animation Types
+1. Height (0.3 to 0.8 meters)
+<img width="832" height="490" alt="StepUp_type1" src="https://github.com/user-attachments/assets/633fa600-d899-44f9-a3c4-0f0a287c6c0f" />
+2. Height (0.8 to 1.5 meters)
+<img width="844" height="500" alt="jumpUp_type2" src="https://github.com/user-attachments/assets/f441b709-77f8-4183-a130-5d884402c97d" />
+3. Height (1.5 to 2.5 meters)
+<img width="834" height="504" alt="climbUp_type3" src="https://github.com/user-attachments/assets/467114cf-181c-4bc1-9357-3981712c9663" />
+4. Height (0.8 to 2 meters + tag ="fence")
+
+
 
 #### Target Matching Explained
 
@@ -171,6 +185,16 @@ animator.MatchTarget(
 - **`rotateToObstacle`** is a separate, simpler correction — it doesn't use `MatchTarget` at all, just directly rotates the transform toward `Quaternion.LookRotation(-hitData.forwardHit.normal)` (i.e., facing squarely into the obstacle's surface) over the course of the action, using `RotationSpeed` from `PlayerController`.
 
 In short: **detection finds the point → the action asset caches it as `MatchPos` → the system feeds it into `MatchTarget` at the configured time window and weight → the animation's hand/foot placement is corrected to exactly match the real obstacle**, regardless of the player's exact approach angle/distance/height within the action's valid range.
+
+- Without Target Matching
+  <img width="834" height="498" alt="withoutTargetMatching" src="https://github.com/user-attachments/assets/86da158d-70e3-4966-800c-4a4ee6e47633" />
+  <img width="824" height="496" alt="withoutTargetMatching_2" src="https://github.com/user-attachments/assets/9d72b932-8864-4d2b-abaa-c3153b0441a5" />
+- With Target Matching
+  <img width="834" height="504" alt="climbUp_type3" src="https://github.com/user-attachments/assets/4ae10fb1-6878-41c4-bb88-948a2b0d95c5" />
+  <img width="826" height="492" alt="vaultFence_withTargeMatchin" src="https://github.com/user-attachments/assets/2b57ff12-61d4-4e10-aad9-aacaa41eefd8" />
+
+ 
+
 
 ---
 
