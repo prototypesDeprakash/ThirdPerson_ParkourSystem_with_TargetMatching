@@ -107,6 +107,12 @@ Pure detection, no decision-making. Casts two rays per check:
 2. **Height ray** — only cast if the forward ray hit something. Starts high above the forward hit point (`heightRayLength` above it) and casts straight down. This finds the *top surface* of whatever the forward ray detected, which tells the rest of the system how tall the obstacle is.
 
 Both hits (and whether they were found) are packed into an `ObstacleHitData` struct and returned. `Debug.DrawRay` visualizes both rays in the Scene view (red = hit, white = miss) for tuning ray length/offsets.
+<img width="842" height="443" alt="image" src="https://github.com/user-attachments/assets/e1385ae4-0b56-4d5d-8aff-5973a9a7e930" />
+<img width="842" height="461" alt="image" src="https://github.com/user-attachments/assets/f5b99105-b337-49a8-8855-03defff3ab9e" />
+<img width="840" height="488" alt="EnvironmentScannergif" src="https://github.com/user-attachments/assets/687d6855-a992-44b4-9209-c0b0bc7856f0" />
+
+
+
 
 ### ParkourAction
 
