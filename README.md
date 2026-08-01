@@ -304,6 +304,15 @@ Lives on the player, alongside `PlayerController`:
 
 ---
 
+
+Credits
+
+This project's core parkour system architecture (environment scanning, ScriptableObject-driven parkour actions, and animation target matching) was built by following the tutorial series from GameDevExperiments (https://www.youtube.com/@GameDevExperiments) on YouTube. The ladder climbing system, along with additional tuning and documentation, was built on top of that foundation.
+
+Huge thanks to the channel for the clear breakdown of the detection → decision → correction pattern — go check out their channel if you want to learn how to build this kind of system yourself.
+
+
+
 ## Known Limitations & Possible Extensions
 
 - `ParkourSystem` only checks the **first** matching action per attempt (`break` on first success) — actions later in the list that could also apply are never considered, so ordering must be deliberate.
