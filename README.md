@@ -3,6 +3,19 @@
 A Unity third-person character controller featuring physics-based movement, a modular obstacle-detection parkour system with animation target matching, and a ladder climbing system — all built around a shared "temporarily hand off control" architecture.
 
 ---
+- output
+
+
+<img width="834" height="504" alt="climbUp_type3" src="https://github.com/user-attachments/assets/6b16829c-138b-4231-8595-8510a28e1282" />
+
+
+<img width="826" height="492" alt="vaultFence_withTargeMatchin" src="https://github.com/user-attachments/assets/d1d8c022-f823-4961-a87d-b187057af32a" />
+
+
+<img width="826" height="496" alt="lc_pt1" src="https://github.com/user-attachments/assets/3985745f-0ed7-4013-8b80-c4f8a353426e" />
+
+
+
 
 ## Table of Contents
 
