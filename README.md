@@ -1,6 +1,6 @@
 # Third-Person Parkour & Ladder Movement System
 
-A Unity third-person character controller featuring physics-based movement, a modular obstacle-detection parkour system with animation target matching, and a ladder climbing system — all built around a shared "temporarily hand off control" architecture.
+A Unity third-person character controller with a modular obstacle-detection parkour system with animation target matching, and a ladder climbing system — all built around a shared "temporarily hand off control" architecture.
 
 ---
 - output
