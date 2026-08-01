@@ -179,7 +179,8 @@ The four sample actions included, ordered by the obstacle height range each one 
 
 **4. Height 0.8 m – 2 m, requires `obstacleTag = "fence"` (vault fence)**
 
-*(no preview clip provided for this action)*
+<img width="826" height="492" alt="vaultFence_withTargeMatchin" src="https://github.com/user-attachments/assets/80fce935-1161-4a39-8a2f-c73adb1d824a" />
+
 
 #### Target Matching Explained
 
