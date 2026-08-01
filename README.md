@@ -108,24 +108,25 @@ Pure detection, no decision-making. Casts two rays per check:
 
 Both hits (and whether they were found) are packed into an `ObstacleHitData` struct and returned. `Debug.DrawRay` visualizes both rays in the Scene view (red = hit, white = miss) for tuning ray length/offsets.
 
-<p align="center">
-  <img width="420" alt="image" src="https://github.com/user-attachments/assets/e1385ae4-0b56-4d5d-8aff-5973a9a7e930" />
-  <img width="420" alt="image" src="https://github.com/user-attachments/assets/f5b99105-b337-49a8-8855-03defff3ab9e" />
-  <br/>
-  <img width="420" alt="EnvironmentScannergif" src="https://github.com/user-attachments/assets/687d6855-a992-44b4-9209-c0b0bc7856f0" />
-  <br/>
-  <sub>Forward ray (white/red) and downward height ray visualized in the Scene view</sub>
-</p>
+**Forward ray hit (Scene view)**
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/e1385ae4-0b56-4d5d-8aff-5973a9a7e930" />
+
+**Height ray hit (Scene view)**
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/f5b99105-b337-49a8-8855-03defff3ab9e" />
+
+**Both rays in action**
+
+<img width="600" alt="EnvironmentScannergif" src="https://github.com/user-attachments/assets/687d6855-a992-44b4-9209-c0b0bc7856f0" />
 
 ### ParkourAction
 
 A `ScriptableObject` — meaning each parkour move (vault over a low wall, climb onto a ledge, hop a gap, etc.) is authored as a reusable **data asset** in the Project window (`Create → Scriptable Objects → ParkourAction`), not hardcoded logic. This lets designers add/tune new moves without touching code.
 
-<p align="center">
-  <img width="420" alt="image" src="https://github.com/user-attachments/assets/98a7a008-851f-41d7-934b-9f28f02f3e53" />
-  <br/>
-  <sub>ParkourAction ScriptableObject asset in the Inspector</sub>
-</p>
+**ParkourAction ScriptableObject asset in the Inspector**
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/98a7a008-851f-41d7-934b-9f28f02f3e53" />
 
 Each asset defines:
 
@@ -156,22 +157,29 @@ The orchestrator:
   3. Breaks early if the Animator has moved into a transition past the halfway point (`timer > 0.5f`), to avoid the coroutine holding control after the clip has effectively finished.
   4. Waits `postActionDelay`, then restores control.
 
-<p align="center">
-  <img width="420" alt="image" src="https://github.com/user-attachments/assets/0fe7b6f3-2658-40fe-b3b3-8db8bd4b6f2c" />
-  <br/>
-  <sub>ParkourSystem's assigned list of ParkourAction assets, evaluated top to bottom</sub>
-</p>
+**ParkourSystem's assigned list of ParkourAction assets, evaluated top to bottom**
+
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/0fe7b6f3-2658-40fe-b3b3-8db8bd4b6f2c" />
 
 #### Animation Types
 
 The four sample actions included, ordered by the obstacle height range each one covers:
 
-| # | Height Range | Preview |
-|---|---|---|
-| 1 | 0.3 m – 0.8 m (step up) | <img width="260" alt="StepUp_type1" src="https://github.com/user-attachments/assets/633fa600-d899-44f9-a3c4-0f0a287c6c0f" /> |
-| 2 | 0.8 m – 1.5 m (jump up) | <img width="260" alt="jumpUp_type2" src="https://github.com/user-attachments/assets/f441b709-77f8-4183-a130-5d884402c97d" /> |
-| 3 | 1.5 m – 2.5 m (climb up) | <img width="260" alt="climbUp_type3" src="https://github.com/user-attachments/assets/467114cf-181c-4bc1-9357-3981712c9663" /> |
-| 4 | 0.8 m – 2 m, requires `obstacleTag = "fence"` (vault fence) | — |
+**1. Height 0.3 m – 0.8 m (step up)**
+
+<img width="600" alt="StepUp_type1" src="https://github.com/user-attachments/assets/633fa600-d899-44f9-a3c4-0f0a287c6c0f" />
+
+**2. Height 0.8 m – 1.5 m (jump up)**
+
+<img width="600" alt="jumpUp_type2" src="https://github.com/user-attachments/assets/f441b709-77f8-4183-a130-5d884402c97d" />
+
+**3. Height 1.5 m – 2.5 m (climb up)**
+
+<img width="600" alt="climbUp_type3" src="https://github.com/user-attachments/assets/467114cf-181c-4bc1-9357-3981712c9663" />
+
+**4. Height 0.8 m – 2 m, requires `obstacleTag = "fence"` (vault fence)**
+
+*(no preview clip provided for this action)*
 
 #### Target Matching Explained
 
@@ -200,22 +208,17 @@ In short: **detection finds the point → the action asset caches it as `MatchPo
 
 **Before / after comparison:**
 
-<table>
-<tr>
-<th align="center">Without Target Matching</th>
-<th align="center">With Target Matching</th>
-</tr>
-<tr>
-<td align="center">
-<img width="380" alt="withoutTargetMatching" src="https://github.com/user-attachments/assets/86da158d-70e3-4966-800c-4a4ee6e47633" /><br/>
-<img width="380" alt="withoutTargetMatching_2" src="https://github.com/user-attachments/assets/9d72b932-8864-4d2b-abaa-c3153b0441a5" />
-</td>
-<td align="center">
-<img width="380" alt="climbUp_type3" src="https://github.com/user-attachments/assets/4ae10fb1-6878-41c4-bb88-948a2b0d95c5" /><br/>
-<img width="380" alt="vaultFence_withTargeMatchin" src="https://github.com/user-attachments/assets/2b57ff12-61d4-4e10-aad9-aacaa41eefd8" />
-</td>
-</tr>
-</table>
+**Without Target Matching**
+
+<img width="600" alt="withoutTargetMatching" src="https://github.com/user-attachments/assets/86da158d-70e3-4966-800c-4a4ee6e47633" />
+
+<img width="600" alt="withoutTargetMatching_2" src="https://github.com/user-attachments/assets/9d72b932-8864-4d2b-abaa-c3153b0441a5" />
+
+**With Target Matching**
+
+<img width="600" alt="climbUp_type3" src="https://github.com/user-attachments/assets/4ae10fb1-6878-41c4-bb88-948a2b0d95c5" />
+
+<img width="600" alt="vaultFence_withTargeMatchin" src="https://github.com/user-attachments/assets/2b57ff12-61d4-4e10-aad9-aacaa41eefd8" />
 
 ---
 
