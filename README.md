@@ -246,6 +246,15 @@ Lives on the player, alongside `PlayerController`:
   4. Exits when: the player climbs above `TopY` (plays a `LadderExitTop` animation first), climbs below `BottomY` (exits immediately), or presses `F` again mid-climb.
   5. On any exit path, crossfades back into a named locomotion state and restores control via `SetControl(true)` — necessary because the ladder blend tree has no authored exit transitions of its own; the script fully owns entry and exit.
 
+<img width="826" height="496" alt="lc_pt1" src="https://github.com/user-attachments/assets/2d38d61e-0925-4c42-a181-55fa4c716e5f" />
+
+<img width="826" height="502" alt="lc_pt2" src="https://github.com/user-attachments/assets/46b2b4ad-5026-46e5-afaa-404a12440d55" />
+
+<img width="826" height="486" alt="lc_pt3" src="https://github.com/user-attachments/assets/d9cbe955-c925-480b-bbb6-87046d6e4cd2" />
+
+<img width="828" height="484" alt="lc_climbDownpt5" src="https://github.com/user-attachments/assets/ff22a5cc-acc8-4fb1-b29a-78829833941f" />
+
+
 ---
 
 ## Setup Guide
@@ -255,18 +264,29 @@ Lives on the player, alongside `PlayerController`:
 2. Assign a list of `ParkourAction` assets to `ParkourSystem` in the desired priority order.
 3. Animator needs: a locomotion blend tree driven by `moveAmount`, a `Jump` state, one state per `ParkourAction.animName`, a `LadderClimb` 1D blend tree driven by `climbSpeed` (thresholds at -1/0/1 for down/idle/up), and a `LadderExitTop` state.
 
+
+<img width="482" height="746" alt="playersetup_1" src="https://github.com/user-attachments/assets/0c7610f6-514f-4c6d-bc04-9b008281ccee" />
+
 **Camera:**
 1. `CameraController` on the Main Camera, with `followTarget` set to the player.
+
+<img width="483" height="290" alt="image" src="https://github.com/user-attachments/assets/1351f038-55d2-4f5d-a144-e9889b0a6ac5" />
+
 
 **Parkour Actions:**
 1. `Create → Scriptable Objects → ParkourAction` for each move (vault, climb, etc.).
 2. Set `minHeight`/`maxHeight` to the range of obstacle heights the animation looks good for, `obstacleTag` if you want to restrict it to specific obstacles, and the target matching fields as described above.
 3. Tag climbable/vaultable geometry to match `obstacleTag`, and ensure it's on the layer assigned to `EnvironmentScanner`'s `obstacleLayer`.
 
+
+
 **Ladders:**
 1. Create a `Ladder` GameObject with a trigger `BoxCollider` sized to the climbable zone (including enough height at the top for the player to stand and press `F` to climb down).
 2. Add `BottomPoint`/`TopPoint` empty children, positioned at the base and near-top of the ladder, and assign them in the `Ladder` component's Inspector.
 3. Keep the ladder's *solid* collider (for physical blocking) separate from the trigger collider — don't mark the same collider as both, or the player will walk through the mesh.
+
+<img width="1599" height="729" alt="image" src="https://github.com/user-attachments/assets/8bf3a42e-7a3c-4d83-88c9-4bb7cf83c8cf" />
+
 
 ---
 
